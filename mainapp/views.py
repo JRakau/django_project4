@@ -13,7 +13,8 @@ api_key = "74fee5c279404d629efab122626502bb"
 
 # Create your views here
 def stockPicker(request):
-    return render(request, 'mainapp/stockpicker.html')
+    stock_picker = ['AAPL', 'TSLA', 'AMZN', 'NFLX']
+    return render(request, 'mainapp/stockpicker.html', {'stockpicker': stock_picker})
 
 
 def stockTracker(request):
@@ -21,14 +22,33 @@ def stockTracker(request):
 
     stockpicker = request.GET.getlist('stockpicker')
     stockshare = str(stockpicker)[1:-1]
+    txt = "Symbol:"
+    i = 0
 
     print(stockpicker)
     for ticker_input in stockpicker:
-        print(get_stock_quote(ticker_input, api_key))
+        if i == 0:
+            txt = "{}{}".format(txt, ticker_input)
+        else:
+            txt = "{},{}".format(txt, ticker_input)
+
+        i += 1
+
+    data = get_stock_quote('symbol', 'stockpicker')
+
+    print(txt)
 
     print(stockshare)
+    print("\n L1")
+    test1 = data['AAPL']
+    print(test1)
+    print("\n L2")
+    print(test1['meta'])
+    print("\n L3")
+    test1 = test1['meta']
+    print(test1['symbol'])
 
-    return render(request, 'mainapp/stocktracker.html')
+    return render(request, 'mainapp/stocktracker.html', {'data': data, 'selectedstock': stockshare})
 
 
 class MyStock:
@@ -89,6 +109,8 @@ def get_stock_quote(ticker, key):
             }
     """
     url = f"https://api.twelvedata.com/quote?symbol={ticker}&apikey={key}"
+    url = 'https://api.twelvedata.com/time_series?symbol=AAPL,EUR/USD,IXIC&interval=1min&apikey=demo'
+
     json_resp = 0
     try:
         json_resp = requests.get(url).json()

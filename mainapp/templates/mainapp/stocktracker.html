@@ -45,27 +45,24 @@ StockTracker
           <th scope="col">SNo.</th>
           <th scope="col">Stock</th>
           <th scope="col">Price</th>
-          <th scope="col">Previous Close</th>
-          <th scope="col">Open</th>
-          <th scope="col">Change</th>
-          <th scope="col">Market Cap</th>
-          <th scope="col">Volume</th>
+          
         </tr>
       </thead>
       <tbody>
-        {% for key, value in data.items %}
+        {% for key,value in data.items %} 
+       
+        {% for key2,value2 in value.items %} 
         <tr>
-          <th scope="row">{{forloop.counter}}</th>
-          <td>{{key}}</td>
-          <td id="{{key}}_price"></td>
-          <td id="{{key}}_prevprice"></td>
-          <td id="{{key}}_open"></td>
-          <td id="{{key}}_change">
-          
-          </td>
-          <td id="{{key}}_cap"></td>
-          <td id="{{key}}_vol"></td>
+          <td>{{forloop.counter}}</td>
+
+        {% if forloop.counter == 1 %}
+        {% for key3,value3 in value2.items %} 
+            <th scope="row">{{ key3 }}: {{ value3 }}</th>         
+            {% endfor %}
+            {% endif %}
         </tr>
+        {% endfor %}
+     
         {% endfor %}
       </tbody>
     </table>
