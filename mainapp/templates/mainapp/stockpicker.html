@@ -13,7 +13,8 @@ StockPicker {% endblock %} {% block css %}
       aria-label="multiple select example"
       name="stockpicker"
     >
-      <option selected>Pick your stocks.</option>
+      <option value="AAPL">AAPL - Apple Inc</option>
+      <option value="TSLA">TSLA - Tesla</option>
       {% for i in stockpicker %}
       <option value="{{i}}">{{i}}</option>
       {% endfor %}

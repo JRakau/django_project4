@@ -27,7 +27,7 @@
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">LetsStockify</a>
+        <a class="navbar-brand" href="#">Stock Django Project 4</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -99,7 +99,12 @@
         <span id="toggle" class="slider round"></span>
       </label>
     </div>
-    <script></script>
+    <script>
+      var button = document.getElementById("toggle");
+      button.onclick = function () {
+        document.body.classList.toggle("dark-theme");
+      };
+    </script>
 
     {% block body %} {% endblock %}
     <!-- Optional JavaScript; choose one of the two! -->
